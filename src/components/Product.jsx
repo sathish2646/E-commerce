@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 import { products } from '../data/Data'
+import { useCart } from '../useContext/CartContext'
 
 const product = () => {
     const[search,setSearch] = useState('')
-    const[cart,setCart] = useState([])
+
+    const {handleAddToCart} = useCart()
     
       const filteredProducts = products.filter(product =>
     product.name.toLowerCase().includes(search.toLowerCase())
   );
-    const handleAddToCart =(product) =>{
-        setCart(prevcart =>[...prevcart,product])
-         console.log('Cart:', [...cart, product]);
-    }
+    
   return (
     <>
      <input onChange={e => setSearch(e.target.value)} className='in'  type="text" placeholder='search products'/>
@@ -25,7 +24,7 @@ const product = () => {
         <p>{pro.description}</p>
         <h4>{pro.category}</h4>
         <h5>{pro.rating}</h5>
-        <button onClick={() =>handleAddToCart(pro)}>Add to cart</button>
+        <button onClick={() => handleAddToCart(pro) }>Add to cart</button>
        
         </div>
       ))}
